@@ -26,8 +26,10 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.SystemColor;
 
 
 
@@ -118,7 +120,8 @@ public class PReceiver extends JPanel implements MyListener {
 	
 
 	public PReceiver() {
-
+		
+		setBackground(SystemColor.activeCaptionBorder);
 		setLayout(null);
 		
 		
@@ -126,18 +129,26 @@ public class PReceiver extends JPanel implements MyListener {
 		txtPort.setBounds(42, 13, 62, 22);
 		add(txtPort);
 		JLabel lblPort = new JLabel("port:");
+		lblPort.setFont(UIManager.getFont("FileChooser.listFont"));
+
 		lblPort.setBounds(12, 15, 35, 16);
 		add(lblPort);
 		JLabel lblMessage = new JLabel("Tre\u015B\u0107 przesy\u0142ki: ");
+		lblMessage.setFont(UIManager.getFont("FileChooser.listFont"));
+
 		lblMessage.setBounds(12, 91, 105, 16);
 		add(lblMessage);
 		txtMessage = new JTextField();
 		txtMessage.setBounds(12, 117, 262, 16);
 		add(txtMessage);
 		JLabel lblNewLabel = new JLabel("ODBIERANIE PRZESY\u0141KI ");
+		lblNewLabel.setFont(UIManager.getFont("FileChooser.listFont"));
+
 		lblNewLabel.setBounds(12, 45, 158, 13);
 		add(lblNewLabel);
 		JLabel lblNewLabel_1 = new JLabel("ID przesy\u0142ki kt\u00F3r\u0105 chcesz odebra\u0107: ");
+		lblNewLabel_1 .setFont(UIManager.getFont("FileChooser.listFont"));
+
 		lblNewLabel_1.setBounds(12, 68, 210, 13);
 		add(lblNewLabel_1);
 		idprzesylki = new JTextField();
@@ -146,6 +157,7 @@ public class PReceiver extends JPanel implements MyListener {
 		
 
 		JToggleButton btnListen = new JToggleButton("Listen");
+		btnListen.setFont(UIManager.getFont("FileChooser.listFont"));
 
 		btnListen.addActionListener(new ActionListener() {
 
@@ -162,11 +174,6 @@ public class PReceiver extends JPanel implements MyListener {
 						out.write(txtPort.getText());
 						out.newLine();
 						out.close();
-					
-						//String ip=txtPort.getText();
-						//BufferedWriter out=new BufferedWriter(new FileWriter());
-						//out.write(ip);
-						//out.close();
 					} catch (IOException e) {
 						
 						e.printStackTrace();
@@ -181,6 +188,8 @@ public class PReceiver extends JPanel implements MyListener {
 
 		
 		JButton odbierzprzesylke = new JButton("Odbierz");
+		odbierzprzesylke.setFont(UIManager.getFont("FileChooser.listFont"));
+
 		odbierzprzesylke.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int i=0;

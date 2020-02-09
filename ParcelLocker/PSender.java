@@ -16,6 +16,7 @@ import java.net.UnknownHostException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import Central.CReceiver;
+import java.awt.SystemColor;
 
 class Sender{
 	public void send(String message, String host, int port){
@@ -64,10 +65,11 @@ public class PSender extends JPanel {
 
 
 	public PSender(String host, int port) {
+		setBackground(SystemColor.activeCaption);
 		setLayout(null);
 		
 		txtMessage = new JTextField();
-		txtMessage.setBounds(198, 162, 207, 22);
+		txtMessage.setBounds(198, 168, 207, 16);
 		add(txtMessage);
 		
 		
@@ -103,7 +105,7 @@ public class PSender extends JPanel {
              } catch (IOException e) {
 				e.printStackTrace();
 			}}});
-		btnSend.setBounds(327, 244, 78, 25);
+		btnSend.setBounds(294, 244, 111, 25);
 		add(btnSend);
 		
 		txtHost = new JTextField();
@@ -133,7 +135,7 @@ public class PSender extends JPanel {
 		add(Imie);
 		
 		textField = new JTextField();
-		textField.setBounds(198, 42, 207, 19);
+		textField.setBounds(198, 45, 207, 16);
 		add(textField);
 		textField.setColumns(10);
 		
@@ -170,7 +172,7 @@ public class PSender extends JPanel {
 		
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
-		textField_4.setBounds(198, 133, 207, 19);
+		textField_4.setBounds(198, 142, 207, 16);
 		add(textField_4);
 		
 		lblPortNadawczy = new JLabel("port nadawczy: ");
@@ -178,7 +180,7 @@ public class PSender extends JPanel {
 		add(lblPortNadawczy);
 		
 		textField_5 = new JTextField();
-		textField_5.setBounds(359, 13, 96, 22);
+		textField_5.setBounds(359, 13, 81, 22);
 		add(textField_5);
 		
 		lblUnikalnyNumer = new JLabel("Unikalny numer: ");
