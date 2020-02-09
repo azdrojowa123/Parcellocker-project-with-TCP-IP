@@ -34,7 +34,7 @@ public class CMain extends JFrame {
 	 */
 	public CMain() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 590, 417);
+		setBounds(100, 100, 752, 356);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -42,7 +42,7 @@ public class CMain extends JFrame {
 		
 		CReceiver receiver = new CReceiver();
 		receiver.setBorder(new LineBorder(new Color(0, 0, 0)));
-		receiver.setBounds(10, 13, 556, 312);
+		receiver.setBounds(10, 13, 746, 312);
 		contentPane.add(receiver);
 		
 		CSender sender = new CSender((String) null, 0);

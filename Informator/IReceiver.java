@@ -1,6 +1,8 @@
 package Informator;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
@@ -19,10 +21,13 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
+import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.JList;
+import java.awt.SystemColor;
 
 interface MyListener {
 	void messageReceived(String theLine);
@@ -36,28 +41,26 @@ class Receiver {
 	private Thread t = null;
 	private int port = 0;
 	private ServerSocket s = null;
-	private boolean  end=false;
 
 	public void stop() {
 			t.interrupt();
 			try {
 				s.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 	}
 
 	public void start() {
-		end = false;
+		boolean end = false;
 		t = new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
 					s = new ServerSocket(port);
 					while (true) {
-						Socket sc = s.accept();
+							Socket sc = s.accept();
 							InputStream is = sc.getInputStream();
 							InputStreamReader isr = new InputStreamReader(is);
 							BufferedReader br = new BufferedReader(isr);
@@ -96,31 +99,35 @@ class Receiver {
 
 public class IReceiver extends JPanel implements MyListener {
 
-	private JTextField txtPort;
 	private Receiver r = null;
-	public 	DefaultListModel<String> listModel = new DefaultListModel<>();
-	public JList<String> list = new JList<>(listModel);
 	public static  ArrayList<String> help_list=new ArrayList<>();
+	DefaultTableModel dtm=new DefaultTableModel(0,0);
+	private JTable table_1=new JTable();
+	
 	
 	
 
 	public IReceiver() {
+		setBackground(SystemColor.activeCaptionBorder);
 
 		setLayout(null);
 
 		JLabel llbll = new JLabel("7777");
-		llbll.setBounds(555, 39, 62, 22);
+		llbll.setFont(UIManager.getFont("FileChooser.listFont"));
+		llbll.setBounds(578, 39, 62, 22);
 		add(llbll);
 
 
 		JLabel lblPort = new JLabel("port:");
-		lblPort.setBounds(499, 42, 35, 16);
+		lblPort.setFont(UIManager.getFont("FileChooser.listFont"));
+		lblPort.setBounds(533, 42, 35, 16);
 		add(lblPort);
 	
 			
-		list.setBounds(10, 13, 465, 265);
-		add(list);
+	
 		JToggleButton btnListen = new JToggleButton("Listen");
+		btnListen.setFont(UIManager.getFont("FileChooser.listFont"));
+
 
 		btnListen.addActionListener(new ActionListener()
 		{
@@ -141,6 +148,18 @@ public class IReceiver extends JPanel implements MyListener {
 		btnListen.setBounds(538, 71, 79, 25);
 		add(btnListen);
 		
+		
+		String header[]=new String[] {"Parcel with ID was sent "};
+		dtm.setColumnIdentifiers(header);
+		table_1.setModel(dtm);
+		table_1.getTableHeader().setFont(UIManager.getFont("FileChooser.listFont"));
+		JScrollPane scrollPane= new  JScrollPane(table_1);
+		scrollPane.setBounds(10, 13, 493, 265);
+		add(scrollPane);
+		table_1 = new JTable();
+		table_1.setBounds(23, 25, 436, 233);
+		add(table_1);
+		
 
 
 	}
@@ -148,8 +167,8 @@ public class IReceiver extends JPanel implements MyListener {
 
 
 	@Override
-	public void messageReceived(String s ) {
-			this.listModel.addElement(s);
+	public void messageReceived(String s) {
+		dtm.addRow(new Object[] {s});
 			
 	}
 	@Override

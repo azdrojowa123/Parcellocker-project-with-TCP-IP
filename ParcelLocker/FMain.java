@@ -15,9 +15,7 @@ import java.awt.Color;
 public class FMain extends JFrame {
 
 	private JPanel contentPane=null;
-	/**
-	 * Launch the application.
-	 */
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -31,9 +29,7 @@ public class FMain extends JFrame {
 		});
 	}
 
-	/**
-	 * Create the frame.
-	 */
+
 	public FMain() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 683, 603);

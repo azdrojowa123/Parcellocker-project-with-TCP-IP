@@ -38,7 +38,7 @@ class Sender{
 		Socket sp;
 		try {
 			sp=new Socket(host,port);
-			ObjectOutputStream  outparcel=new ObjectOutputStream(sp.getOutputStream());
+			ObjectOutputStream outparcel=new ObjectOutputStream(sp.getOutputStream());
 			outparcel.writeObject(p);
 		}catch (UnknownHostException e) {
 			e.printStackTrace();
@@ -101,7 +101,6 @@ public class PSender extends JPanel {
              catch(NumberFormatException | FileNotFoundException e){
             	 e.printStackTrace();
              } catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}}});
 		btnSend.setBounds(327, 244, 78, 25);

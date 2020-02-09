@@ -1,6 +1,7 @@
 package Central;
 
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.Box;
 import javax.swing.DefaultListModel;
@@ -22,8 +23,12 @@ import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
 import javax.swing.JList;
+import javax.swing.UIManager;
+import java.awt.SystemColor;
+import javax.swing.JTable;
 
 interface MyListener {
 	void messageReceived(String theLine);
@@ -34,11 +39,9 @@ interface MyListener {
 class Receiver {
 	
 	private List<MyListener> ml = new ArrayList<MyListener>();
-	
 	private Thread t = null;
 	private int port = 0;
 	private ServerSocket s = null;
-	private boolean end = false;
 
 	public void stop() {
 			t.interrupt();
@@ -52,7 +55,7 @@ class Receiver {
 	}
 
 	public void start() {
-		end = false;
+		boolean end = false;
 		t = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -99,31 +102,38 @@ class Receiver {
 
 public class CReceiver extends JPanel implements MyListener {
 
-	private JTextField txtPort;
 	private Receiver r = null;
-	public 	DefaultListModel<String> listModel = new DefaultListModel<>();
-	public JList<String> list = new JList<>(listModel);
 	public static  ArrayList<String> help_list=new ArrayList<>();
+	public JTable table=new JTable();
+	DefaultTableModel dtm=new DefaultTableModel(0,0);
+	
 	
 	
 
 	public CReceiver() {
+	
+		this.setBackground(SystemColor.activeCaptionBorder);
+		this.setForeground(Color.WHITE);
 
 		setLayout(null);
 
 		JLabel llbll = new JLabel("6666");
-		llbll.setBounds(441, 39, 62, 22);
+		llbll.setFont(UIManager.getFont("FileChooser.listFont"));
+		llbll.setBounds(646, 39, 62, 22);
 		add(llbll);
 
 
-		JLabel lblPort = new JLabel("port:");
-		lblPort.setBounds(380, 42, 35, 16);
+		JLabel lblPort = new JLabel("Listenning on port:");
+		lblPort.setFont(UIManager.getFont("FileChooser.listFont"));
+		lblPort.setBounds(530, 42, 106, 16);
 		add(lblPort);
 	
 			
-		list.setBounds(10, 13, 302, 265);
-		add(list);
+	
 		JToggleButton btnListen = new JToggleButton("Listen");
+		btnListen.setFont(UIManager.getFont("FileChooser.listFont"));
+		btnListen.setForeground(new Color(0, 0, 0));
+		btnListen.setBackground(new Color(65, 105, 225));
 
 		btnListen.addActionListener(new ActionListener()
 		{
@@ -140,8 +150,16 @@ public class CReceiver extends JPanel implements MyListener {
 				}
 			}
 		});
-		btnListen.setBounds(424, 71, 79, 25);
+		btnListen.setBounds(629, 82, 79, 25);
 		add(btnListen);
+		
+		String header[]=new String[] {"Registered ParcelLockers with ID"};
+		dtm.setColumnIdentifiers(header);
+		table.setModel(dtm);
+	    table.getTableHeader().setFont(UIManager.getFont("FileChooser.listFont"));
+		JScrollPane scrollPane= new  JScrollPane(table);
+		scrollPane.setBounds(10, 13, 493, 265);
+		add(scrollPane);
 		
 
 
@@ -150,24 +168,16 @@ public class CReceiver extends JPanel implements MyListener {
 
 
 	@Override
-	public void messageReceived(String s ) {
-			this.listModel.addElement("ParcelLocker number "+s+"is register in Central Server" );
-			
+	public void messageReceived(String s) {
+			dtm.addRow(new Object[] {s});
 	}
 
 
 
 	@Override
 	public void messageReceived(Socket s) {
-		// TODO Auto-generated method stub
 		
 	}
-
-
-
-
-
-
 
 	
 }

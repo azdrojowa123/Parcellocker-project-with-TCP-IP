@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
 class Sender{
-	public void send(String message, String host, int port){
+	public void send(String message, String host, int port) throws UnknownHostException{
 		Socket s;
 		try {
 			s = new Socket(host,port);
@@ -24,13 +24,9 @@ class Sender{
 			pw.flush();
 			pw.close();
 			s.close();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}		
+		} 
 	}
 }
 public class CSender extends JPanel {
@@ -39,16 +35,14 @@ public class CSender extends JPanel {
 	private JTextField txtPort;
 	private JLabel lblMessage;
 
-	/**
-	 * Create the panel.
-	 */
+
 	public CSender(String host, int port) {
 		setLayout(null);
 		
 		txtMessage = new JTextField();
 		txtMessage.setBounds(12, 77, 216, 22);
 		add(txtMessage);
-		//txtMessage.setColumns(10);
+	
 		
 		JButton btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
@@ -56,7 +50,7 @@ public class CSender extends JPanel {
              try {
 				new Sender().send(txtMessage.getText(),txtHost.getText(),Integer.parseInt(txtPort.getText()));
 				}
-             catch(NumberFormatException e){
+             catch(NumberFormatException | UnknownHostException e){
             	 e.printStackTrace();
              }}});
 		btnSend.setBounds(268, 76, 78, 25);
@@ -65,12 +59,10 @@ public class CSender extends JPanel {
 		txtHost = new JTextField();
 		txtHost.setBounds(51, 13, 149, 22);
 		add(txtHost);
-		//txtHost.setColumns(10);
 		
 		txtPort = new JTextField();
 		txtPort.setBounds(268, 13, 78, 22);
 		add(txtPort);
-		//txtPort.setColumns(10);
 		
 		JLabel lblHost = new JLabel("host:");
 		lblHost.setBounds(12, 16, 35, 16);
