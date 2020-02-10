@@ -2,6 +2,7 @@ package ParcelLocker;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -16,6 +17,8 @@ import java.net.UnknownHostException;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import Central.CReceiver;
+
+import java.awt.Font;
 import java.awt.SystemColor;
 
 class Sender{
@@ -62,9 +65,21 @@ public class PSender extends JPanel {
 	private JTextField textField_5;
 	private JLabel lblUnikalnyNumer;
 	private JTextField id;
+	
+	public static void setUIFont (javax.swing.plaf.FontUIResource f){
+	    java.util.Enumeration keys = UIManager.getDefaults().keys();
+	    while (keys.hasMoreElements()) {
+	      Object key = keys.nextElement();
+	      Object value = UIManager.get (key);
+	      if (value instanceof javax.swing.plaf.FontUIResource)
+	        UIManager.put (key, f);
+	      }
+	    } 
 
 
 	public PSender(String host, int port) {
+		
+		setUIFont (new javax.swing.plaf.FontUIResource("FileChooser.listFont",Font.ITALIC,12));
 		setBackground(SystemColor.activeCaption);
 		setLayout(null);
 		

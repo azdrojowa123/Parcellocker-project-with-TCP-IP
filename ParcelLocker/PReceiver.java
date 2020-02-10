@@ -23,6 +23,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
@@ -47,7 +48,6 @@ class Receiver {
 	private Thread t = null;
 	private int port = 0;
 	private ServerSocket s = null;
-	private boolean end = false;
 	public static ControllPackage pp;
 
 
@@ -62,7 +62,7 @@ class Receiver {
 	}
 
 	public void start() {
-		end = false;
+		boolean end = false;
 		t = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -119,11 +119,13 @@ public class PReceiver extends JPanel implements MyListener {
 	public static ArrayList<Parcel>elp=new ArrayList<Parcel>();
 	
 
+	
+
 	public PReceiver() {
 		
 		setBackground(SystemColor.activeCaptionBorder);
 		setLayout(null);
-		
+
 		
 		txtPort = new JTextField();
 		txtPort.setBounds(42, 13, 62, 22);
