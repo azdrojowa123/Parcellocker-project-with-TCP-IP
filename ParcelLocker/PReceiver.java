@@ -37,7 +37,6 @@ import java.awt.SystemColor;
 interface MyListener {
 	
 	void messageReceived(String theLine);
-	
 }
 
 class Receiver {
@@ -212,6 +211,26 @@ public class PReceiver extends JPanel implements MyListener {
 		});
 		odbierzprzesylke.setBounds(318, 63, 96, 22);
 		add(odbierzprzesylke);
+		
+		JButton btnNewButton = new JButton("All parcellockers");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					ParcelLockerDAO dao=new ParcelLockerDAO();
+					List<ParcelLocker>list=dao.getAllParcelLockers();
+					ListGUI lg=new ListGUI(list);
+					lg.setVisible(true);
+					System.out.println("TU");
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
+			}
+		});
+		btnNewButton.setBounds(232, 12, 182, 25);
+		add(btnNewButton);
 		
 
 	}
