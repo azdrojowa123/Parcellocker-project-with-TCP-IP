@@ -27,6 +27,27 @@ public class ParcelLockerDAO {
 	
 		}
 	
+	public void addParcelLocker(ParcelLocker theParcelLocker) throws Exception {
+		PreparedStatement myStmt = null;
+
+		try {
+			// prepare statement
+			myStmt = myConn.prepareStatement("insert into parcellockers"
+					+ " (localhost)"
+					+ " values (?)");
+			
+			// set params
+			myStmt.setInt(1,  theParcelLocker.getLocalhost());
+			
+			// execute SQL
+			myStmt.executeUpdate();			
+		}
+		finally {
+			close(myStmt,null);
+		}
+		
+	}
+	
 	public List<ParcelLocker> getAllParcelLockers() throws Exception {
 		List<ParcelLocker> list = new ArrayList<>();
 		
@@ -81,7 +102,7 @@ public class ParcelLockerDAO {
 		int  localhost = myRs.getInt("localhost");
 	
 		
-		ParcelLocker tempEmployee = new ParcelLocker(id, localhost);
+		ParcelLocker tempEmployee = new ParcelLocker(localhost);
 		
 		return tempEmployee;
 	}

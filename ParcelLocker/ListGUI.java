@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
+import java.awt.SystemColor;
 
 public class ListGUI extends JFrame {
 	
@@ -40,12 +41,14 @@ public class ListGUI extends JFrame {
         dtm.setColumnIdentifiers(header);
         
         table =new JTable(dtm);
+        table.setForeground(SystemColor.windowBorder);
+        table.setBackground(SystemColor.info);
         table.setBounds(25, 13, 397, 205);
-		add(table);
+		getContentPane().add(table);
 
         int count = 0; 		
         while (list.size() > count) {
-        	dtm.addRow(new Object[] {list.get(count).getId(),list.get(count).getLocalhost()});
+        	dtm.addRow(new Object[] {count,list.get(count).getLocalhost()});
         	count++;
         	System.out.println("HERE");
         }

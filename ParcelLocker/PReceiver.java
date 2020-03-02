@@ -180,6 +180,15 @@ public class PReceiver extends JPanel implements MyListener {
 						e.printStackTrace();
 					}
 					
+					//add new sql row
+					try {
+						ParcelLockerDAO dao=new ParcelLockerDAO();
+						dao.addParcelLocker(new ParcelLocker(Integer.parseInt(txtPort.getText())));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					
+					
 				} else {
 					r.stop();
 				}
@@ -188,7 +197,7 @@ public class PReceiver extends JPanel implements MyListener {
 		add(btnListen);
 
 		
-		JButton odbierzprzesylke = new JButton("Odbierz");
+		JButton odbierzprzesylke = new JButton("Receive");
 		odbierzprzesylke.setFont(UIManager.getFont("FileChooser.listFont"));
 
 		odbierzprzesylke.addActionListener(new ActionListener() {
@@ -221,7 +230,7 @@ public class PReceiver extends JPanel implements MyListener {
 					List<ParcelLocker>list=dao.getAllParcelLockers();
 					ListGUI lg=new ListGUI(list);
 					lg.setVisible(true);
-					System.out.println("TU");
+					
 					
 				} catch (Exception e1) {
 					
