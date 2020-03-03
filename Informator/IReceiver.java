@@ -15,6 +15,9 @@ import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.Color;
@@ -26,8 +29,14 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.JTextComponent;
+
+import ParcelLocker.ListGUI;
+import ParcelLocker.ParcelLocker;
+import ParcelLocker.ParcelLockerDAO;
+
 import javax.swing.JList;
 import java.awt.SystemColor;
+import javax.swing.JTextPane;
 
 interface MyListener {
 	void messageReceived(String theLine);
@@ -103,6 +112,7 @@ public class IReceiver extends JPanel implements MyListener {
 	public static  ArrayList<String> help_list=new ArrayList<>();
 	DefaultTableModel dtm=new DefaultTableModel(0,0);
 	private JTable table_1=new JTable();
+	private JTextPane hosttodelete=new JTextPane();
 	
 	
 	
@@ -159,6 +169,36 @@ public class IReceiver extends JPanel implements MyListener {
 		table_1 = new JTable();
 		table_1.setBounds(23, 25, 436, 233);
 		add(table_1);
+		
+		JButton btnNewButton = new JButton("Delete ");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				ParcelLockerDAO dao;
+				try {
+					
+					dao = new ParcelLockerDAO();
+					int number=Integer.parseInt(hosttodelete.getText());
+					Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/locker?serverTimezone=UTC", "student", "student");
+
+			        PreparedStatement st = myConn.prepareStatement("DELETE FROM parcellockers WHERE localhost = " + number + ";");
+			        st.executeUpdate(); 
+			        myConn.close();
+					
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
+				
+				
+			}
+		});
+		btnNewButton.setBounds(527, 143, 130, 25);
+		add(btnNewButton);
+		
+		hosttodelete = new JTextPane();
+		hosttodelete.setBounds(527, 120, 130, 16);
+		add(hosttodelete);
 		
 
 

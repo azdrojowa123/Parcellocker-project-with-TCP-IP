@@ -50,7 +50,7 @@ public class ListGUI extends JFrame {
         while (list.size() > count) {
         	dtm.addRow(new Object[] {count,list.get(count).getLocalhost()});
         	count++;
-        	System.out.println("HERE");
+        	
         }
 	            
 	             
